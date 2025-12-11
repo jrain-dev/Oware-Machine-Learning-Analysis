@@ -1,0 +1,27 @@
+{
+  "total_episodes": 500,
+  "warmup_episodes": 100,
+  "eval_interval": 150,
+  "eval_episodes": 20,
+  "checkpoint_interval": 500,
+  "save_best_only": true,
+  "max_checkpoints": 5,
+  "opponent_types": [
+    "random",
+    "greedy",
+    "heuristic",
+    "minimax"
+  ],
+  "opponent_weights": [
+    0.4,
+    0.3,
+    0.2,
+    0.1
+  ],
+  "adaptive_curriculum": true,
+  "variant": "standard",
+  "log_interval": 100,
+  "detailed_logging": true,
+  "patience": 1000,
+  "min_improvement": 0.01
+}

@@ -1,0 +1,8 @@
+{
+  "episode": 500,
+  "score": 0.7375,
+  "timestamp": "20251209_010854",
+  "agent_type": "DQNSmall",
+  "best_win_rate": 0.675,
+  "episodes_without_improvement": 0
+}

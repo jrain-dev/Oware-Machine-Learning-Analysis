@@ -1,0 +1,164 @@
+PARAMETER SENSITIVITY ANALYSIS REPORT
+============================================================
+Generated: 2025-12-09 02:29:15
+
+SENSITIVITY COEFFICIENTS SUMMARY
+----------------------------------------
+Parameter            Agent        Metric               Coefficient 
+----------------------------------------------------------------
+learning_rate        DQNSmall     minimax_win_rate     0.0704      
+learning_rate        DQNSmall     episodes_completed   0.0000      
+learning_rate        DQNSmall     final_win_rate       0.0434      
+learning_rate        DQNSmall     training_efficiency  0.0564      
+learning_rate        DQNSmall     random_win_rate      0.0402      
+learning_rate        DQNSmall     greedy_win_rate      0.2283      
+learning_rate        DQNSmall     total_time           0.0133      
+learning_rate        DQNSmall     heuristic_win_rate   0.0887      
+learning_rate        DQNSmall     best_win_rate        0.0461      
+epsilon_decay        DQNSmall     minimax_win_rate     10.9053     
+epsilon_decay        DQNSmall     episodes_completed   0.0000      
+epsilon_decay        DQNSmall     final_win_rate       13.8013     
+epsilon_decay        DQNSmall     training_efficiency  196.0068    
+epsilon_decay        DQNSmall     random_win_rate      37.7431     
+epsilon_decay        DQNSmall     greedy_win_rate      48.2045     
+epsilon_decay        DQNSmall     total_time           75.3728     
+epsilon_decay        DQNSmall     heuristic_win_rate   53.2178     
+epsilon_decay        DQNSmall     best_win_rate        10.8166     
+discount_factor      DQNSmall     minimax_win_rate     4.6257      
+discount_factor      DQNSmall     episodes_completed   0.0000      
+discount_factor      DQNSmall     final_win_rate       4.1154      
+discount_factor      DQNSmall     training_efficiency  18.7289     
+discount_factor      DQNSmall     random_win_rate      4.3481      
+discount_factor      DQNSmall     greedy_win_rate      7.1585      
+discount_factor      DQNSmall     total_time           7.0166      
+discount_factor      DQNSmall     heuristic_win_rate   3.4785      
+discount_factor      DQNSmall     best_win_rate        1.6924      
+buffer_size          DQNSmall     minimax_win_rate     0.2800      
+buffer_size          DQNSmall     episodes_completed   0.0000      
+buffer_size          DQNSmall     final_win_rate       0.0760      
+buffer_size          DQNSmall     training_efficiency  0.7891      
+buffer_size          DQNSmall     random_win_rate      0.1047      
+buffer_size          DQNSmall     greedy_win_rate      0.2300      
+buffer_size          DQNSmall     total_time           0.2789      
+buffer_size          DQNSmall     heuristic_win_rate   0.1175      
+buffer_size          DQNSmall     best_win_rate        0.1123      
+batch_size           DQNSmall     minimax_win_rate     0.1014      
+batch_size           DQNSmall     episodes_completed   0.0000      
+batch_size           DQNSmall     final_win_rate       0.0704      
+batch_size           DQNSmall     training_efficiency  0.6256      
+batch_size           DQNSmall     random_win_rate      0.0432      
+batch_size           DQNSmall     greedy_win_rate      0.1968      
+batch_size           DQNSmall     total_time           0.2084      
+batch_size           DQNSmall     heuristic_win_rate   0.0476      
+batch_size           DQNSmall     best_win_rate        0.1461      
+learning_rate        DQNMedium    minimax_win_rate     0.1453      
+learning_rate        DQNMedium    episodes_completed   0.0000      
+learning_rate        DQNMedium    final_win_rate       0.0611      
+learning_rate        DQNMedium    training_efficiency  0.0899      
+learning_rate        DQNMedium    random_win_rate      0.0606      
+learning_rate        DQNMedium    greedy_win_rate      0.2944      
+learning_rate        DQNMedium    total_time           0.0521      
+learning_rate        DQNMedium    heuristic_win_rate   0.0919      
+learning_rate        DQNMedium    best_win_rate        0.0604      
+epsilon_decay        DQNMedium    minimax_win_rate     9.6409      
+epsilon_decay        DQNMedium    episodes_completed   0.0000      
+epsilon_decay        DQNMedium    final_win_rate       25.5338     
+epsilon_decay        DQNMedium    training_efficiency  183.2021    
+epsilon_decay        DQNMedium    random_win_rate      31.4632     
+epsilon_decay        DQNMedium    greedy_win_rate      31.6772     
+epsilon_decay        DQNMedium    total_time           62.8592     
+epsilon_decay        DQNMedium    heuristic_win_rate   59.2321     
+epsilon_decay        DQNMedium    best_win_rate        19.6479     
+discount_factor      DQNMedium    minimax_win_rate     3.1307      
+discount_factor      DQNMedium    episodes_completed   0.0000      
+discount_factor      DQNMedium    final_win_rate       2.0157      
+discount_factor      DQNMedium    training_efficiency  20.4196     
+discount_factor      DQNMedium    random_win_rate      1.3779      
+discount_factor      DQNMedium    greedy_win_rate      20.0684     
+discount_factor      DQNMedium    total_time           8.0014      
+discount_factor      DQNMedium    heuristic_win_rate   3.5495      
+discount_factor      DQNMedium    best_win_rate        1.7588      
+buffer_size          DQNMedium    minimax_win_rate     0.3172      
+buffer_size          DQNMedium    episodes_completed   0.0000      
+buffer_size          DQNMedium    final_win_rate       0.0793      
+buffer_size          DQNMedium    training_efficiency  0.6232      
+buffer_size          DQNMedium    random_win_rate      0.0681      
+buffer_size          DQNMedium    greedy_win_rate      0.5490      
+buffer_size          DQNMedium    total_time           0.2274      
+buffer_size          DQNMedium    heuristic_win_rate   0.4821      
+buffer_size          DQNMedium    best_win_rate        0.0389      
+batch_size           DQNMedium    minimax_win_rate     0.1927      
+batch_size           DQNMedium    episodes_completed   0.0000      
+batch_size           DQNMedium    final_win_rate       0.0051      
+batch_size           DQNMedium    training_efficiency  0.5576      
+batch_size           DQNMedium    random_win_rate      0.1204      
+batch_size           DQNMedium    greedy_win_rate      0.2678      
+batch_size           DQNMedium    total_time           0.2346      
+batch_size           DQNMedium    heuristic_win_rate   0.1373      
+batch_size           DQNMedium    best_win_rate        0.1054      
+learning_rate        DQNLarge     minimax_win_rate     0.0719      
+learning_rate        DQNLarge     episodes_completed   0.0000      
+learning_rate        DQNLarge     final_win_rate       0.0206      
+learning_rate        DQNLarge     training_efficiency  0.0331      
+learning_rate        DQNLarge     random_win_rate      0.0837      
+learning_rate        DQNLarge     greedy_win_rate      0.3257      
+learning_rate        DQNLarge     total_time           0.0541      
+learning_rate        DQNLarge     heuristic_win_rate   0.0385      
+learning_rate        DQNLarge     best_win_rate        0.0599      
+epsilon_decay        DQNLarge     minimax_win_rate     76.5300     
+epsilon_decay        DQNLarge     episodes_completed   0.0000      
+epsilon_decay        DQNLarge     final_win_rate       51.8547     
+epsilon_decay        DQNLarge     training_efficiency  144.8831    
+epsilon_decay        DQNLarge     random_win_rate      38.2862     
+epsilon_decay        DQNLarge     greedy_win_rate      107.2939    
+epsilon_decay        DQNLarge     total_time           61.2158     
+epsilon_decay        DQNLarge     heuristic_win_rate   49.2757     
+epsilon_decay        DQNLarge     best_win_rate        10.2567     
+discount_factor      DQNLarge     minimax_win_rate     5.7549      
+discount_factor      DQNLarge     episodes_completed   0.0000      
+discount_factor      DQNLarge     final_win_rate       2.8182      
+discount_factor      DQNLarge     training_efficiency  22.3645     
+discount_factor      DQNLarge     random_win_rate      4.0483      
+discount_factor      DQNLarge     greedy_win_rate      3.3736      
+discount_factor      DQNLarge     total_time           7.2733      
+discount_factor      DQNLarge     heuristic_win_rate   1.7748      
+discount_factor      DQNLarge     best_win_rate        0.6738      
+buffer_size          DQNLarge     minimax_win_rate     0.1120      
+buffer_size          DQNLarge     episodes_completed   0.0000      
+buffer_size          DQNLarge     final_win_rate       0.0254      
+buffer_size          DQNLarge     training_efficiency  0.5560      
+buffer_size          DQNLarge     random_win_rate      0.0993      
+buffer_size          DQNLarge     greedy_win_rate      0.2745      
+buffer_size          DQNLarge     total_time           0.2363      
+buffer_size          DQNLarge     heuristic_win_rate   0.0653      
+buffer_size          DQNLarge     best_win_rate        0.0916      
+batch_size           DQNLarge     minimax_win_rate     0.2733      
+batch_size           DQNLarge     episodes_completed   0.0000      
+batch_size           DQNLarge     final_win_rate       0.1768      
+batch_size           DQNLarge     training_efficiency  0.7495      
+batch_size           DQNLarge     random_win_rate      0.0336      
+batch_size           DQNLarge     greedy_win_rate      0.3949      
+batch_size           DQNLarge     total_time           0.2281      
+batch_size           DQNLarge     heuristic_win_rate   0.2063      
+batch_size           DQNLarge     best_win_rate        0.0531      
+
+PARAMETER RANGES TESTED
+------------------------------
+learning_rate: [0.0005, 0.001, 0.002, 0.005]
+epsilon_decay: [0.995, 0.999, 0.9995]
+discount_factor: [0.95, 0.99, 0.995]
+buffer_size: [5000, 10000, 20000]
+batch_size: [32, 64, 128]
+
+BASE CONFIGURATION
+--------------------
+learning_rate: 0.001
+epsilon_decay: 0.995
+discount_factor: 0.99
+buffer_size: 10000
+batch_size: 64
+total_episodes: 500
+eval_interval: 150
+eval_episodes: 20
+checkpoint_interval: 500
+variant: standard

@@ -2,13 +2,15 @@
 numpy>=1.19.0
 pandas>=1.2.0
 
-# Optional dependencies for enhanced features
 # Deep learning (for DQN agents)
 torch>=1.9.0
 
-# Plotting and visualization (future enhancement)
-# matplotlib>=3.3.0
-# seaborn>=0.11.0
+# Statistical analysis
+scipy>=1.7.0
+
+# Plotting and visualization (for M5 analysis)
+matplotlib>=3.3.0
+seaborn>=0.11.0
 
 # Development and testing
 # pytest>=6.0.0

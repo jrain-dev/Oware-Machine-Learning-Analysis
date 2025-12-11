@@ -1,1 +1,52 @@
-[]
+[
+  {
+    "episode": 100,
+    "timestamp": "2025-12-09T02:25:00.921530",
+    "elapsed_time": 9.735465049743652,
+    "episodes_per_second": 10.271722972559296,
+    "recent_win_rate": 0.28,
+    "epsilon": 0.6057704364907278,
+    "avg_loss": null,
+    "best_win_rate": 0.0
+  },
+  {
+    "episode": 200,
+    "timestamp": "2025-12-09T02:25:08.744299",
+    "elapsed_time": 17.55823278427124,
+    "episodes_per_second": 11.390667982210664,
+    "recent_win_rate": 0.34,
+    "epsilon": 0.2457325055235537,
+    "avg_loss": null,
+    "best_win_rate": 0.325
+  },
+  {
+    "episode": 300,
+    "timestamp": "2025-12-09T02:25:12.851218",
+    "elapsed_time": 21.66515278816223,
+    "episodes_per_second": 13.847121362740586,
+    "recent_win_rate": 0.43,
+    "epsilon": 0.14885748713096328,
+    "avg_loss": null,
+    "best_win_rate": 0.325
+  },
+  {
+    "episode": 400,
+    "timestamp": "2025-12-09T02:25:20.506969",
+    "elapsed_time": 29.32090401649475,
+    "episodes_per_second": 13.642144177238745,
+    "recent_win_rate": 0.61,
+    "epsilon": 0.06038446427088321,
+    "avg_loss": null,
+    "best_win_rate": 0.4625
+  },
+  {
+    "episode": 500,
+    "timestamp": "2025-12-09T02:25:26.626430",
+    "elapsed_time": 35.44035315513611,
+    "episodes_per_second": 14.10821155791837,
+    "recent_win_rate": 0.73,
+    "epsilon": 0.02449513017825978,
+    "avg_loss": null,
+    "best_win_rate": 0.7375
+  }
+]

@@ -20,8 +20,9 @@ def main():
         print("3: run analysis")
         print("4: train dqn")
         print("5: manage trained models")
-        print("6: exit")
-        choice = input("Select an option [1-6]: ").strip()
+        print("6: M5 comprehensive analysis")
+        print("7: exit")
+        choice = input("Select an option [1-7]: ").strip()
         if choice == '1':
             episodes = input('Number of episodes to simulate: ').strip()
             print('Starting simulation (this may take a while)...')
@@ -207,6 +208,143 @@ def main():
                 print('Invalid choice, returning to main menu.')
                 
         elif choice == '6':
+            print('\nM5 Comprehensive Statistical Analysis')
+            print('  1) Quick Analysis (reduced parameters)')
+            print('  2) Full Analysis (complete statistical evaluation)')  
+            print('  3) Parameter Sensitivity Only')
+            print('  4) Statistical Evaluation Only')
+            print('  5) Create Visualizations Only')
+            print('  6) Back to main menu')
+            
+            m5_choice = input('Select M5 analysis type [1-6]: ').strip()
+            
+            if m5_choice == '1':
+                # Quick M5 analysis
+                print('\nRunning Quick M5 Analysis...')
+                print('This includes reduced parameter testing for faster results.')
+                
+                try:
+                    import m5_analysis_controller as m5
+                    controller = m5.MasterAnalysisController()
+                    results = controller.run_quick_m5_analysis()
+                    
+                    print('\nQuick M5 analysis completed successfully!')
+                    print(f'Results saved to: {controller.output_dir}')
+                    
+                except Exception as e:
+                    print(f'M5 analysis failed: {e}')
+                    print('Make sure all required dependencies are installed.')
+                    
+            elif m5_choice == '2':
+                # Full M5 analysis
+                print('\nRunning Full M5 Analysis...')
+                print('WARNING: This may take 30-60 minutes to complete.')
+                
+                confirm = input('Continue with full analysis? (y/n): ').strip().lower()
+                if confirm in ['y', 'yes']:
+                    try:
+                        import m5_analysis_controller as m5
+                        controller = m5.MasterAnalysisController()
+                        results = controller.run_m5_comprehensive_analysis()
+                        
+                        print('\nFull M5 analysis completed successfully!')
+                        print(f'Results saved to: {controller.output_dir}')
+                        
+                    except Exception as e:
+                        print(f'Full M5 analysis failed: {e}')
+                else:
+                    print('Full analysis cancelled.')
+                    
+            elif m5_choice == '3':
+                # Parameter sensitivity only
+                print('\nParameter Sensitivity Analysis')
+                print('Select parameters to test:')
+                print('  a) Learning Rate')
+                print('  b) Epsilon Decay') 
+                print('  c) Discount Factor')
+                print('  d) Buffer Size')
+                print('  e) Batch Size')
+                print('  f) All Parameters')
+                
+                param_choice = input('Select parameters [a-f]: ').strip().lower()
+                
+                param_map = {
+                    'a': ['learning_rate'],
+                    'b': ['epsilon_decay'],
+                    'c': ['discount_factor'], 
+                    'd': ['buffer_size'],
+                    'e': ['batch_size'],
+                    'f': ['learning_rate', 'epsilon_decay', 'discount_factor', 'buffer_size', 'batch_size']
+                }
+                
+                if param_choice in param_map:
+                    try:
+                        import parameter_sensitivity as ps
+                        analyzer = ps.ParameterSensitivityAnalyzer()
+                        
+                        # Run for DQNMedium as example
+                        from agents import DQNMedium
+                        for param in param_map[param_choice]:
+                            print(f'Testing {param}...')
+                            results = analyzer.run_parameter_sweep(DQNMedium, param, num_runs=2)
+                        
+                        print('Parameter sensitivity analysis completed!')
+                        
+                    except Exception as e:
+                        print(f'Parameter sensitivity analysis failed: {e}')
+                else:
+                    print('Invalid parameter selection.')
+                    
+            elif m5_choice == '4':
+                # Statistical evaluation only
+                print('\nStatistical Evaluation')
+                
+                try:
+                    sample_size = int(input('Sample size per matchup [50]: ') or '50')
+                    replications = int(input('Number of replications [3]: ') or '3')
+                except ValueError:
+                    sample_size, replications = 50, 3
+                
+                try:
+                    import statistical_analysis as sa
+                    analyzer = sa.ComprehensiveStatisticalAnalyzer()
+                    results = analyzer.run_comprehensive_evaluation(
+                        sample_size=sample_size,
+                        num_replications=replications
+                    )
+                    
+                    # Generate report
+                    report = analyzer.generate_statistical_report()
+                    print('Statistical evaluation completed!')
+                    
+                except Exception as e:
+                    print(f'Statistical evaluation failed: {e}')
+                    
+            elif m5_choice == '5':
+                # Visualizations only
+                print('\nCreating Visualizations')
+                print('Note: This requires existing analysis data or will use example data.')
+                
+                try:
+                    import advanced_visualizations as av
+                    viz_suite = av.AdvancedVisualizationSuite()
+                    
+                    # Create example visualizations
+                    viz_files = av.create_all_visualizations()
+                    
+                    print(f'Created {len(viz_files)} visualization files')
+                    for file in viz_files:
+                        print(f'  - {file}')
+                        
+                except Exception as e:
+                    print(f'Visualization creation failed: {e}')
+                    
+            elif m5_choice == '6':
+                continue  # Back to main menu
+            else:
+                print('Invalid choice, returning to main menu.')
+                
+        elif choice == '7':
             print('Goodbye')
             sys.exit(0)
         else:

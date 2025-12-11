@@ -1,0 +1,21 @@
+{
+  "checkpoints": [
+    {
+      "episode": 500,
+      "score": 0.575,
+      "path": "output/training/sensitivity_DQNSmall_discount_factor_0.995_2/checkpoints/checkpoint_ep500_20251209_011618.pth",
+      "metadata_path": "output/training/sensitivity_DQNSmall_discount_factor_0.995_2/checkpoints/checkpoint_ep500_20251209_011618_metadata.json",
+      "metrics_path": "output/training/sensitivity_DQNSmall_discount_factor_0.995_2/checkpoints/checkpoint_ep500_20251209_011618_metrics.pkl",
+      "timestamp": "20251209_011618"
+    }
+  ],
+  "best_checkpoint": {
+    "episode": 500,
+    "score": 0.575,
+    "path": "output/training/sensitivity_DQNSmall_discount_factor_0.995_2/checkpoints/checkpoint_ep500_20251209_011618.pth",
+    "metadata_path": "output/training/sensitivity_DQNSmall_discount_factor_0.995_2/checkpoints/checkpoint_ep500_20251209_011618_metadata.json",
+    "metrics_path": "output/training/sensitivity_DQNSmall_discount_factor_0.995_2/checkpoints/checkpoint_ep500_20251209_011618_metrics.pkl",
+    "timestamp": "20251209_011618"
+  },
+  "best_score": 0.575
+}

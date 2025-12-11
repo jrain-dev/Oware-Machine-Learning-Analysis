@@ -1,0 +1,447 @@
+{
+  "agent": "DQNMedium",
+  "parameter": "batch_size",
+  "timestamp": "20251209_015134",
+  "results": {
+    "32": {
+      "minimax_win_rate": {
+        "mean": 0.5333333333333333,
+        "std": 0.05773502691896256,
+        "min": 0.5,
+        "max": 0.6,
+        "ci_95_lower": 0.3899115756767953,
+        "ci_95_upper": 0.6767550909898714,
+        "sample_size": 3,
+        "raw_values": [
+          0.6,
+          0.5,
+          0.5
+        ]
+      },
+      "episodes_completed": {
+        "mean": 500.0,
+        "std": 0.0,
+        "min": 500,
+        "max": 500,
+        "ci_95_lower": NaN,
+        "ci_95_upper": NaN,
+        "sample_size": 3,
+        "raw_values": [
+          500,
+          500,
+          500
+        ]
+      },
+      "final_win_rate": {
+        "mean": 0.6416666666666666,
+        "std": 0.08779711460710612,
+        "min": 0.55,
+        "max": 0.725,
+        "ci_95_lower": 0.4235665432909913,
+        "ci_95_upper": 0.8597667900423419,
+        "sample_size": 3,
+        "raw_values": [
+          0.725,
+          0.55,
+          0.65
+        ]
+      },
+      "training_efficiency": {
+        "mean": 0.2618215899794867,
+        "std": 0.03935953863197402,
+        "min": 0.22241212595541004,
+        "max": 0.30113101250994717,
+        "ci_95_lower": 0.16404707574791766,
+        "ci_95_upper": 0.3595961042110557,
+        "sample_size": 3,
+        "raw_values": [
+          0.30113101250994717,
+          0.22241212595541004,
+          0.2619216314731028
+        ]
+      },
+      "random_win_rate": {
+        "mean": 0.9333333333333332,
+        "std": 0.05773502691896257,
+        "min": 0.9,
+        "max": 1.0,
+        "ci_95_lower": 0.7899115756767952,
+        "ci_95_upper": 1.0767550909898713,
+        "sample_size": 3,
+        "raw_values": [
+          1.0,
+          0.9,
+          0.9
+        ]
+      },
+      "greedy_win_rate": {
+        "mean": 0.2833333333333334,
+        "std": 0.07637626158259732,
+        "min": 0.2,
+        "max": 0.35,
+        "ci_95_lower": 0.09360418165584664,
+        "ci_95_upper": 0.47306248501082016,
+        "sample_size": 3,
+        "raw_values": [
+          0.35,
+          0.2,
+          0.3
+        ]
+      },
+      "total_time": {
+        "mean": 147.2427008152008,
+        "std": 2.4281768823148338,
+        "min": 144.45539712905884,
+        "max": 148.89950013160706,
+        "ci_95_lower": 141.21077505111694,
+        "ci_95_upper": 153.27462657928467,
+        "sample_size": 3,
+        "raw_values": [
+          144.45539712905884,
+          148.37320518493652,
+          148.89950013160706
+        ]
+      },
+      "heuristic_win_rate": {
+        "mean": 0.8166666666666665,
+        "std": 0.18929694486000911,
+        "min": 0.6,
+        "max": 0.95,
+        "ci_95_lower": 0.34642698722662246,
+        "ci_95_upper": 1.2869063461067105,
+        "sample_size": 3,
+        "raw_values": [
+          0.95,
+          0.6,
+          0.9
+        ]
+      },
+      "best_win_rate": {
+        "mean": 0.6416666666666667,
+        "std": 0.07324331596352891,
+        "min": 0.5875,
+        "max": 0.725,
+        "ci_95_lower": 0.4597201833502743,
+        "ci_95_upper": 0.8236131499830591,
+        "sample_size": 3,
+        "raw_values": [
+          0.5875,
+          0.725,
+          0.6125
+        ]
+      }
+    },
+    "64": {
+      "minimax_win_rate": {
+        "mean": 0.6,
+        "std": 0.18027756377319945,
+        "min": 0.4,
+        "max": 0.75,
+        "ci_95_lower": 0.1521657052540698,
+        "ci_95_upper": 1.0478342947459303,
+        "sample_size": 3,
+        "raw_values": [
+          0.4,
+          0.75,
+          0.65
+        ]
+      },
+      "episodes_completed": {
+        "mean": 500.0,
+        "std": 0.0,
+        "min": 500,
+        "max": 500,
+        "ci_95_lower": NaN,
+        "ci_95_upper": NaN,
+        "sample_size": 3,
+        "raw_values": [
+          500,
+          500,
+          500
+        ]
+      },
+      "final_win_rate": {
+        "mean": 0.6416666666666667,
+        "std": 0.040181878170803965,
+        "min": 0.6125,
+        "max": 0.6875,
+        "ci_95_lower": 0.5418493477748522,
+        "ci_95_upper": 0.7414839855584813,
+        "sample_size": 3,
+        "raw_values": [
+          0.6875,
+          0.6125,
+          0.625
+        ]
+      },
+      "training_efficiency": {
+        "mean": 0.2725106798959857,
+        "std": 0.021116340645406326,
+        "min": 0.26010536009859936,
+        "max": 0.2968924726891893,
+        "ci_95_lower": 0.2200547817652156,
+        "ci_95_upper": 0.3249665780267558,
+        "sample_size": 3,
+        "raw_values": [
+          0.2968924726891893,
+          0.26010536009859936,
+          0.2605342069001685
+        ]
+      },
+      "random_win_rate": {
+        "mean": 0.7999999999999999,
+        "std": 0.08660254037844388,
+        "min": 0.75,
+        "max": 0.9,
+        "ci_95_lower": 0.5848673635151929,
+        "ci_95_upper": 1.015132636484807,
+        "sample_size": 3,
+        "raw_values": [
+          0.9,
+          0.75,
+          0.75
+        ]
+      },
+      "greedy_win_rate": {
+        "mean": 0.39999999999999997,
+        "std": 0.1322875655532295,
+        "min": 0.25,
+        "max": 0.5,
+        "ci_95_lower": 0.07137946961765096,
+        "ci_95_upper": 0.728620530382349,
+        "sample_size": 3,
+        "raw_values": [
+          0.5,
+          0.25,
+          0.45
+        ]
+      },
+      "total_time": {
+        "mean": 141.38770818710327,
+        "std": 2.4993868576945855,
+        "min": 138.93919110298157,
+        "max": 143.93503427505493,
+        "ci_95_lower": 135.17888703772795,
+        "ci_95_upper": 147.5965293364786,
+        "sample_size": 3,
+        "raw_values": [
+          138.93919110298157,
+          141.28889918327332,
+          143.93503427505493
+        ]
+      },
+      "heuristic_win_rate": {
+        "mean": 0.7666666666666666,
+        "std": 0.16072751268321592,
+        "min": 0.65,
+        "max": 0.95,
+        "ci_95_lower": 0.36739739109940833,
+        "ci_95_upper": 1.1659359422339248,
+        "sample_size": 3,
+        "raw_values": [
+          0.95,
+          0.7,
+          0.65
+        ]
+      },
+      "best_win_rate": {
+        "mean": 0.6041666666666666,
+        "std": 0.08322910148099237,
+        "min": 0.55,
+        "max": 0.7,
+        "ci_95_lower": 0.3974141169652004,
+        "ci_95_upper": 0.8109192163681329,
+        "sample_size": 3,
+        "raw_values": [
+          0.7,
+          0.55,
+          0.5625
+        ]
+      }
+    },
+    "128": {
+      "minimax_win_rate": {
+        "mean": 0.6833333333333332,
+        "std": 0.11547005383792512,
+        "min": 0.55,
+        "max": 0.75,
+        "ci_95_lower": 0.3964898180202572,
+        "ci_95_upper": 0.9701768486464093,
+        "sample_size": 3,
+        "raw_values": [
+          0.75,
+          0.75,
+          0.55
+        ]
+      },
+      "episodes_completed": {
+        "mean": 500.0,
+        "std": 0.0,
+        "min": 500,
+        "max": 500,
+        "ci_95_lower": NaN,
+        "ci_95_upper": NaN,
+        "sample_size": 3,
+        "raw_values": [
+          500,
+          500,
+          500
+        ]
+      },
+      "final_win_rate": {
+        "mean": 0.6375,
+        "std": 0.05448623679425846,
+        "min": 0.575,
+        "max": 0.675,
+        "ci_95_lower": 0.5021486844097014,
+        "ci_95_upper": 0.7728513155902985,
+        "sample_size": 3,
+        "raw_values": [
+          0.675,
+          0.6625,
+          0.575
+        ]
+      },
+      "training_efficiency": {
+        "mean": 0.5117969457148671,
+        "std": 0.40197609645186577,
+        "min": 0.27474726213572914,
+        "max": 0.9759232454801695,
+        "ci_95_lower": -0.4867670346910261,
+        "ci_95_upper": 1.5103609261207604,
+        "sample_size": 3,
+        "raw_values": [
+          0.28472032952870263,
+          0.27474726213572914,
+          0.9759232454801695
+        ]
+      },
+      "random_win_rate": {
+        "mean": 0.85,
+        "std": 0.13228756555322954,
+        "min": 0.7,
+        "max": 0.95,
+        "ci_95_lower": 0.5213794696176509,
+        "ci_95_upper": 1.1786205303823492,
+        "sample_size": 3,
+        "raw_values": [
+          0.95,
+          0.9,
+          0.7
+        ]
+      },
+      "greedy_win_rate": {
+        "mean": 0.3333333333333333,
+        "std": 0.12583057392117916,
+        "min": 0.2,
+        "max": 0.45,
+        "ci_95_lower": 0.02075285936841814,
+        "ci_95_upper": 0.6459138072982484,
+        "sample_size": 3,
+        "raw_values": [
+          0.2,
+          0.35,
+          0.45
+        ]
+      },
+      "total_time": {
+        "mean": 107.42480317751567,
+        "std": 62.42948167524755,
+        "min": 35.35114073753357,
+        "max": 144.67842078208923,
+        "ci_95_lower": -47.6586265750711,
+        "ci_95_upper": 262.50823293010245,
+        "sample_size": 3,
+        "raw_values": [
+          142.2448480129242,
+          144.67842078208923,
+          35.35114073753357
+        ]
+      },
+      "heuristic_win_rate": {
+        "mean": 0.6833333333333335,
+        "std": 0.10408329997330668,
+        "min": 0.6,
+        "max": 0.8,
+        "ci_95_lower": 0.42477608270942435,
+        "ci_95_upper": 0.9418905839572426,
+        "sample_size": 3,
+        "raw_values": [
+          0.8,
+          0.65,
+          0.6
+        ]
+      },
+      "best_win_rate": {
+        "mean": 0.6916666666666668,
+        "std": 0.047324236215002306,
+        "min": 0.6375,
+        "max": 0.725,
+        "ci_95_lower": 0.5741067468066556,
+        "ci_95_upper": 0.8092265865266779,
+        "sample_size": 3,
+        "raw_values": [
+          0.7125,
+          0.6375,
+          0.725
+        ]
+      }
+    }
+  },
+  "sensitivity_analysis": {
+    "minimax_win_rate": {
+      "sensitivity_coefficient": 0.19266055045871552,
+      "parameter_range": 96,
+      "metric_range": 0.1499999999999999,
+      "correlation": 0.992064532916446
+    },
+    "episodes_completed": {
+      "sensitivity_coefficient": 0.0,
+      "parameter_range": 96,
+      "metric_range": 0.0,
+      "correlation": NaN
+    },
+    "final_win_rate": {
+      "sensitivity_coefficient": 0.005061460592914073,
+      "parameter_range": 96,
+      "metric_range": 0.004166666666666763,
+      "correlation": -0.9449111825230603
+    },
+    "training_efficiency": {
+      "sensitivity_coefficient": 0.5575561999002902,
+      "parameter_range": 96,
+      "metric_range": 0.24997535573538043,
+      "correlation": 0.9566128347893276
+    },
+    "random_win_rate": {
+      "sensitivity_coefficient": 0.12043010752688171,
+      "parameter_range": 96,
+      "metric_range": 0.1333333333333333,
+      "correlation": -0.4589568600826326
+    },
+    "greedy_win_rate": {
+      "sensitivity_coefficient": 0.2677595628415299,
+      "parameter_range": 96,
+      "metric_range": 0.11666666666666659,
+      "correlation": 0.2485479064004798
+    },
+    "total_time": {
+      "sensitivity_coefficient": 0.23458453509527957,
+      "parameter_range": 96,
+      "metric_range": 39.817897637685135,
+      "correlation": -0.9806817652273393
+    },
+    "heuristic_win_rate": {
+      "sensitivity_coefficient": 0.13725490196078408,
+      "parameter_range": 96,
+      "metric_range": 0.13333333333333308,
+      "correlation": -0.9989061072386721
+    },
+    "best_win_rate": {
+      "sensitivity_coefficient": 0.10537634408602167,
+      "parameter_range": 96,
+      "metric_range": 0.08750000000000013,
+      "correlation": 0.7145752309013798
+    }
+  }
+}
