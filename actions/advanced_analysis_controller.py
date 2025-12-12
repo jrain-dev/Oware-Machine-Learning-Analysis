@@ -1,5 +1,5 @@
 """
-Master Analysis Controller for Oware AI M5 Statistical Analysis
+Master Analysis Controller for Oware AI Advanced Statistical Analysis
 
 This module coordinates comprehensive analysis including:
 - Parameter sensitivity analysis
@@ -53,12 +53,12 @@ class MasterAnalysisController:
         # Results storage
         self.analysis_results = {}
         
-    def run_m5_comprehensive_analysis(self, 
+    def run_comprehensive_analysis(self, 
                                     sensitivity_params: Dict = None,
                                     statistical_params: Dict = None,
                                     create_visualizations: bool = True) -> Dict:
         """
-        Run complete M5 analysis including all required components.
+        Run complete comprehensive analysis including all required components.
         
         Args:
             sensitivity_params: Parameters for sensitivity analysis
@@ -515,9 +515,9 @@ class MasterAnalysisController:
         except Exception as e:
             print(f"Error saving master results: {e}")
     
-    def run_quick_m5_analysis(self) -> Dict:
-        """Run a quick version of M5 analysis for testing."""
-        print("Running Quick M5 Analysis (reduced parameters for speed)...")
+    def run_quick_analysis(self) -> Dict:
+        """Run a quick version of analysis for testing."""
+        print("Running Quick Analysis (reduced parameters for speed)...")
         
         # Reduced parameters for quick testing
         sensitivity_params = {
@@ -532,23 +532,23 @@ class MasterAnalysisController:
             'game_variant': 'standard'
         }
         
-        return self.run_m5_comprehensive_analysis(
+        return self.run_comprehensive_analysis(
             sensitivity_params=sensitivity_params,
             statistical_params=statistical_params,
             create_visualizations=True
         )
 
 
-def run_quick_m5_demo():
-    """Run a quick M5 analysis demonstration."""
+def run_quick_demo():
+    """Run a quick analysis demonstration."""
     if not ANALYSIS_MODULES_AVAILABLE:
         print("Analysis modules not available. Please install required dependencies.")
         return
     
     controller = MasterAnalysisController()
-    results = controller.run_quick_m5_analysis()
+    results = controller.run_quick_analysis()
     
-    print(f"\nQuick M5 analysis completed!")
+    print(f"\nQuick analysis completed!")
     print(f"Results directory: {controller.output_dir}")
     
     return results
@@ -556,12 +556,12 @@ def run_quick_m5_demo():
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "quick":
-        run_quick_m5_demo()
+        run_quick_demo()
     elif len(sys.argv) > 1 and sys.argv[1] == "full":
         controller = MasterAnalysisController()
-        controller.run_m5_comprehensive_analysis()
+        controller.run_comprehensive_analysis()
     else:
         print("Usage:")
-        print("  python m5_analysis_controller.py quick  - Run quick M5 analysis")
-        print("  python m5_analysis_controller.py full   - Run full M5 analysis")
+        print("  python advanced_analysis_controller.py quick  - Run quick analysis")
+        print("  python advanced_analysis_controller.py full   - Run full analysis")
         print("  Import this module for programmatic use")

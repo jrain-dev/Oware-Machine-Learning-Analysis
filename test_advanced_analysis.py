@@ -1,7 +1,7 @@
 """
-Test script for M5 Comprehensive Statistical Analysis System
+Test script for Advanced Comprehensive Statistical Analysis System
 
-This script validates all components of the M5 analysis including:
+This script validates all components of the advanced analysis including:
 - Parameter sensitivity analysis
 - Statistical evaluation with confidence intervals
 - Advanced visualizations
@@ -42,10 +42,10 @@ def test_imports():
         return False
     
     try:
-        from actions.m5_analysis_controller import MasterAnalysisController
-        print("✓ M5 analysis controller imported")
+        from actions.advanced_analysis_controller import MasterAnalysisController
+        print("✓ Advanced analysis controller imported")
     except ImportError as e:
-        print(f"✗ M5 analysis controller import failed: {e}")
+        print(f"✗ Advanced analysis controller import failed: {e}")
         return False
     
     # Test optional dependencies
@@ -208,12 +208,12 @@ def test_visualizations():
         return False
 
 
-def test_m5_controller():
-    """Test the M5 master controller."""
-    print("\nTesting M5 master analysis controller...")
+def test_analysis_controller():
+    """Test the advanced analysis controller."""
+    print("\nTesting advanced analysis controller...")
     
     try:
-        from actions.m5_analysis_controller import MasterAnalysisController
+        from actions.advanced_analysis_controller import MasterAnalysisController
         
         controller = MasterAnalysisController()
         
@@ -275,10 +275,10 @@ def test_file_operations():
         return False
 
 
-def run_all_m5_tests():
-    """Run comprehensive M5 analysis system tests."""
+def run_all_analysis_tests():
+    """Run comprehensive analysis system tests."""
     print("=" * 70)
-    print("M5 COMPREHENSIVE ANALYSIS SYSTEM TESTS")
+    print("ADVANCED COMPREHENSIVE ANALYSIS SYSTEM TESTS")
     print("=" * 70)
     print(f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
@@ -291,7 +291,7 @@ def run_all_m5_tests():
         ("File Operations", test_file_operations),
         ("Statistical Analysis", test_statistical_analysis),
         ("Visualizations", test_visualizations),
-        ("M5 Controller", test_m5_controller),
+        ("Analysis Controller", test_analysis_controller),
     ]
     
     # Only test parameter sensitivity if PyTorch is available
@@ -341,12 +341,12 @@ def run_all_m5_tests():
         print(f"\n⚠ {total - passed} tests failed.")
         print("Please check dependencies and fix issues before running full analysis.")
     
-    print(f"\nFor quick testing, run: python actions/m5_analysis_controller.py quick")
-    print(f"For full analysis, run: python actions/m5_analysis_controller.py full")
+    print(f"\nFor quick testing, run: python actions/advanced_analysis_controller.py quick")
+    print(f"For full analysis, run: python actions/advanced_analysis_controller.py full")
     
     return passed == total
 
 
 if __name__ == "__main__":
-    success = run_all_m5_tests()
+    success = run_all_analysis_tests()
     sys.exit(0 if success else 1)

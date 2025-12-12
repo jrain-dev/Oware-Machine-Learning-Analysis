@@ -20,7 +20,7 @@ def main():
         print("3: run analysis")
         print("4: train dqn")
         print("5: manage trained models")
-        print("6: M5 comprehensive analysis")
+        print("6: run comprehensive analysis")
         print("7: exit")
         choice = input("Select an option [1-7]: ").strip()
         if choice == '1':
@@ -208,7 +208,7 @@ def main():
                 print('Invalid choice, returning to main menu.')
                 
         elif choice == '6':
-            print('\nM5 Comprehensive Statistical Analysis')
+            print('\nComprehensive Statistical Analysis')
             print('  1) Quick Analysis (reduced parameters)')
             print('  2) Full Analysis (complete statistical evaluation)')  
             print('  3) Parameter Sensitivity Only')
@@ -216,46 +216,46 @@ def main():
             print('  5) Create Visualizations Only')
             print('  6) Back to main menu')
             
-            m5_choice = input('Select M5 analysis type [1-6]: ').strip()
+            analysis_choice = input('Select analysis type [1-6]: ').strip()
             
-            if m5_choice == '1':
-                # Quick M5 analysis
-                print('\nRunning Quick M5 Analysis...')
+            if analysis_choice == '1':
+                # Quick analysis
+                print('\nRunning Quick Analysis...')
                 print('This includes reduced parameter testing for faster results.')
                 
                 try:
-                    import m5_analysis_controller as m5
-                    controller = m5.MasterAnalysisController()
-                    results = controller.run_quick_m5_analysis()
+                    import advanced_analysis_controller as aac
+                    controller = aac.MasterAnalysisController()
+                    results = controller.run_quick_analysis()
                     
-                    print('\nQuick M5 analysis completed successfully!')
+                    print('\nQuick analysis completed successfully!')
                     print(f'Results saved to: {controller.output_dir}')
                     
                 except Exception as e:
-                    print(f'M5 analysis failed: {e}')
+                    print(f'Analysis failed: {e}')
                     print('Make sure all required dependencies are installed.')
                     
-            elif m5_choice == '2':
-                # Full M5 analysis
-                print('\nRunning Full M5 Analysis...')
+            elif analysis_choice == '2':
+                # Full analysis
+                print('\nRunning Full Analysis...')
                 print('WARNING: This may take 30-60 minutes to complete.')
                 
                 confirm = input('Continue with full analysis? (y/n): ').strip().lower()
                 if confirm in ['y', 'yes']:
                     try:
-                        import m5_analysis_controller as m5
-                        controller = m5.MasterAnalysisController()
-                        results = controller.run_m5_comprehensive_analysis()
+                        import advanced_analysis_controller as aac
+                        controller = aac.MasterAnalysisController()
+                        results = controller.run_comprehensive_analysis()
                         
-                        print('\nFull M5 analysis completed successfully!')
+                        print('\nFull analysis completed successfully!')
                         print(f'Results saved to: {controller.output_dir}')
                         
                     except Exception as e:
-                        print(f'Full M5 analysis failed: {e}')
+                        print(f'Full analysis failed: {e}')
                 else:
                     print('Full analysis cancelled.')
                     
-            elif m5_choice == '3':
+            elif analysis_choice == '3':
                 # Parameter sensitivity only
                 print('\nParameter Sensitivity Analysis')
                 print('Select parameters to test:')
@@ -295,7 +295,7 @@ def main():
                 else:
                     print('Invalid parameter selection.')
                     
-            elif m5_choice == '4':
+            elif analysis_choice == '4':
                 # Statistical evaluation only
                 print('\nStatistical Evaluation')
                 
@@ -320,7 +320,7 @@ def main():
                 except Exception as e:
                     print(f'Statistical evaluation failed: {e}')
                     
-            elif m5_choice == '5':
+            elif analysis_choice == '5':
                 # Visualizations only
                 print('\nCreating Visualizations')
                 print('Note: This requires existing analysis data or will use example data.')
@@ -339,7 +339,7 @@ def main():
                 except Exception as e:
                     print(f'Visualization creation failed: {e}')
                     
-            elif m5_choice == '6':
+            elif analysis_choice == '6':
                 continue  # Back to main menu
             else:
                 print('Invalid choice, returning to main menu.')
