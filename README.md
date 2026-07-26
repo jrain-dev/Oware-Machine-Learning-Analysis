@@ -1,329 +1,340 @@
-# Oware AI Competition Bot Game
+# Oware AI Competition & Machine Learning Analysis
 
-A comprehensive Oware (Awale) AI competition framework featuring multiple AI agents, training capabilities, tournaments, and statistical analysis. This project implements the traditional African board game Oware with various AI strategies and deep reinforcement learning agents.
+A self-contained research playground for the traditional West African mancala game **Oware** (also known as Awale, Ayo, or Wari). The project implements the game engine from scratch in NumPy, a spectrum of AI agents ranging from random play to Deep Q-Networks, and the simulation/tournament/analysis tooling needed to compare them statistically.
+
+The repository doubles as the codebase behind an accompanying research write-up (`Oware Research Paper.pdf`), so the engine, logging format, and agent set are built to produce reproducible experimental data rather than just a playable game.
 
 ## Table of Contents
 
 - [About Oware](#about-oware)
-- [Features](#features)
+- [Repository Layout](#repository-layout)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
-- [Game Rules](#game-rules)
+- [Game Engine](#game-engine)
+- [Game Variants](#game-variants)
 - [AI Agents](#ai-agents)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Configuration](#configuration)
+- [Training Deep Q-Network Agents](#training-deep-q-network-agents)
+- [Simulation, Tournaments & Analysis](#simulation-tournaments--analysis)
+- [Data Output Reference](#data-output-reference)
+- [Testing](#testing)
+- [Research Paper](#research-paper)
+- [Extending the Project](#extending-the-project)
 - [Contributing](#contributing)
+- [License](#license)
 
 ## About Oware
 
-Oware is a traditional African board game from the Mancala family. Two players compete to capture seeds by strategically moving them around a board with 12 pits (6 per player). The game combines tactical thinking with strategic planning, making it an excellent testbed for AI algorithms.
+Oware belongs to the mancala family of pit-and-pebble games. Two players each control six pits; on a turn, a player empties one of their pits and "sows" its seeds counter-clockwise around the board, one seed per pit, skipping the originating pit. If the last seed sown lands in an opponent pit that then holds two or three seeds, the mover captures it — and can keep capturing backward through consecutive opponent pits that also hold two or three seeds ("chain captures," depending on the variant). The game ends when a player passes the 24-seed majority threshold or when a side has no legal moves, at which point any remaining seeds are awarded to the opponent still able to move.
 
-## Features
+This makes Oware an appealing but non-trivial benchmark for game-playing AI: the branching factor is small enough for exhaustive search techniques like minimax to be tractable at shallow depth, while the delayed, chain-reaction nature of captures gives learning-based agents (Q-learning, DQN) something genuinely non-obvious to discover.
 
-- 🎯 **Multiple AI Strategies**: From simple random moves to sophisticated deep Q-networks
-- 🧠 **Reinforcement Learning**: PyTorch-based DQN agents with experience replay
-- 🚀 **Comprehensive Training**: Advanced training system with progress tracking and checkpoints
-- 🏆 **Tournament System**: Single-elimination tournaments with configurable match formats
-- 📊 **Statistical Analysis**: Comprehensive performance metrics and CSV logging
-- ⚙️ **Game Variants**: Support for different rule variants and board configurations
-- 🎮 **Interactive Menu**: Easy-to-use command-line interface
-- 💾 **Advanced Checkpoints**: Automatic model saving with versioning and best model tracking
+## Repository Layout
+
+```
+Oware-Machine-Learning-Analysis/
+├── owareEngine.py              # OwareBoard: core rules, sowing, captures, win detection
+├── agents.py                   # All AI agent implementations (rule-based, RL, deep RL)
+├── requirements.txt            # Python dependencies
+├── TRAINING_GUIDE.md           # In-depth documentation for the DQN training pipeline
+├── test_advanced_analysis.py   # Validation tests for the analysis/statistics tooling
+├── Oware Research Paper.pdf    # Written report describing the methodology and findings
+├── actions/                    # Application layer: everything you actually run
+│   ├── menu.py                 #   Interactive CLI entry point
+│   ├── simulation.py           #   Head-to-head games, batch simulation, tournaments
+│   ├── analysis.py             #   Statistical analysis over simulation/tournament logs
+│   └── training.py             #   Configurable DQN training loop, checkpoints, curricula
+└── output/                     # Generated at runtime — CSV logs, checkpoints, reports
+    ├── sim_log.csv
+    ├── tourney_log.csv
+    ├── analysis_log.csv
+    └── training/
+        └── <session_name>/
+            ├── config.json
+            ├── training_log.json
+            ├── final_metrics.pkl
+            └── checkpoints/
+```
+
+`owareEngine.py` and `agents.py` are intentionally decoupled from the CLI: any script can `import owareEngine` and `import agents` to build custom experiments without touching `actions/`.
 
 ## Installation
 
 ### Prerequisites
 
 - Python 3.7+
-- NumPy
-- Pandas (for analysis features)
-- PyTorch (optional, for DQN agents)
+- NumPy (required — the board state and Q-tables are NumPy arrays)
+- Pandas, SciPy, Matplotlib, Seaborn (required for the analysis tooling)
+- PyTorch (optional — enables the GPU-capable DQN implementation; a pure-NumPy DQN fallback is used automatically if PyTorch is not installed)
 
 ### Setup
 
-1. Clone the repository:
 ```bash
-git clone https://github.com/jrain-dev/Oware-AI-Competition-Bot-Game.git
-cd Oware-AI-Competition-Bot-Game
+git clone https://github.com/jrain-dev/Oware-Machine-Learning-Analysis.git
+cd Oware-Machine-Learning-Analysis
+pip install -r requirements.txt
 ```
 
-2. Install dependencies:
-```bash
-pip install numpy pandas
-```
+`requirements.txt` pins:
 
-3. Install PyTorch (optional, for DQN agents):
-```bash
-pip install torch
+```
+numpy>=1.19.0
+pandas>=1.2.0
+torch>=1.9.0        # optional, DQN agents fall back to NumPy without it
+scipy>=1.7.0
+matplotlib>=3.3.0
+seaborn>=0.11.0
 ```
 
 ## Quick Start
 
-Run the interactive menu:
+The interactive menu is the fastest way to explore the project:
 
 ```bash
 cd actions
 python menu.py
 ```
 
-This will present you with options to:
+It offers:
+
 1. Run simulations
-2. Conduct tournaments  
+2. Conduct tournaments
 3. Analyze results
 4. Train DQN models
 5. Exit
 
-## Game Rules
+Alternatively, drive things directly from Python:
 
-### Standard Oware Rules
+```python
+from owareEngine import OwareBoard
+from agents import RandomAgent, HeuristicAgent
 
-- **Board**: 12 pits arranged in two rows (6 per player)
-- **Setup**: 4 seeds per pit initially (48 total seeds)
-- **Objective**: Capture more seeds than your opponent
+board = OwareBoard(variant="standard")
+agents = [RandomAgent(), HeuristicAgent()]
 
-### Gameplay
+while not board.game_over:
+    player = board.current_player
+    valid_moves = board.get_valid_moves(player)
+    move = agents[player].select_action(board, valid_moves)
+    reward, state, done = board.apply_move(move)
 
-1. **Turn**: Players alternate turns, selecting one of their 6 pits
-2. **Sowing**: Seeds from the selected pit are distributed counter-clockwise, one per pit
-3. **Capturing**: If the last seed lands in an opponent's pit with 2 or 3 seeds total, capture all seeds in that pit
-4. **Chain Captures**: Continue capturing backward if adjacent pits also have 2 or 3 seeds
-5. **Winning**: First player to capture >24 seeds wins, or highest score when no moves remain
+print(board)
+print("Winner:", board.winner)  # 0, 1, or -1 for a tie
+```
 
-### Supported Variants
+## Game Engine
 
-- **Standard**: 4 seeds per pit, chain captures enabled
-- **Sparse**: 2 seeds per pit, chain captures enabled  
-- **Dense**: 6 seeds per pit, chain captures enabled
-- **No Chain**: 4 seeds per pit, only single pit captures
+`owareEngine.py` defines a single class, `OwareBoard`, that holds the entire game state and rule set:
+
+- **Board representation** — a flat NumPy array of 12 pits (`0–5` belong to player 0, `6–11` to player 1), plus a two-element `scores` list.
+- **`get_valid_moves(player)`** — returns the indices of that player's non-empty pits.
+- **`apply_move(move)`** — empties the chosen pit, sows seeds counter-clockwise (skipping the source pit), triggers `_handle_capture`, flips `current_player`, checks for game end, and returns `(reward, state, done)` where `reward` is `+1`/`-1`/`0` from player 0's perspective — convenient for feeding straight into an RL training loop.
+- **`_handle_capture(last_pit)`** — captures the landing pit if it ends on the opponent's side with exactly 2 or 3 seeds, then (variant permitting) walks backward capturing consecutive opponent pits that also hold 2 or 3 seeds.
+- **`_check_game_over()`** — ends the game once a player's score exceeds 24 (majority of 48 seeds), or once the side to move has no legal pit to play, in which case all seeds remaining on the board are awarded to the *other* player before a winner is declared. Ties are represented by `winner = -1`.
+- **`__str__`** — renders a human-readable two-row board with both players' scores, handy for debugging in a REPL.
+
+## Game Variants
+
+`OwareBoard(variant=...)` supports four rule sets, each of which only changes the starting seed count and whether chain captures are enabled — the capture, sowing, and win-condition logic is shared:
+
+| Variant | Seeds per pit | Total seeds | Chain captures |
+| --- | --- | --- | --- |
+| `standard` (default) | 4 | 48 | Yes |
+| `sparse` | 2 | 24 | Yes |
+| `dense` | 6 | 72 | Yes |
+| `no_chain` | 4 | 48 | No — only the single landing pit can be captured |
+
+```python
+board = OwareBoard(variant="dense")
+```
 
 ## AI Agents
 
-### Basic Agents
+All agents in `agents.py` implement a common interface — `select_action(board, valid_moves)` — so they can be swapped into simulations, tournaments, or training loops interchangeably. Learning agents additionally expose `update()`/`train_step()`, `end_episode()`, and `save_checkpoint()`/`load_checkpoint()`.
 
-| Agent | Strategy | Complexity |
-|-------|----------|------------|
-| **RandomAgent** | Random valid moves | Baseline |
-| **GreedyAgent** | Maximizes immediate score gain | Simple |
-| **HeuristicAgent** | Prefers captures, minimizes opponent opportunities | Moderate |
+### Rule-based agents
 
-### Advanced Agents
+| Agent | Strategy |
+| --- | --- |
+| **`RandomAgent`** | Picks uniformly at random among legal moves. Baseline for win-rate comparisons. |
+| **`GreedyAgent`** | Simulates each candidate move on a deep copy of the board and plays whichever yields the largest immediate increase in total captured seeds. |
+| **`HeuristicAgent`** | Strongly prefers any move that captures seeds this turn; if no capture is available, it looks one ply further and picks the move that *minimizes* the opponent's best immediate capture on their following turn. |
 
-| Agent | Algorithm | Features |
-|-------|-----------|-----------|
-| **MinimaxAgent** | Minimax with alpha-beta pruning | Configurable depth, position evaluation |
-| **QLearningAgent** | Q-Learning | Exploration/exploitation, state-action values |
+### Search-based agent
 
-### Deep Learning Agents
+| Agent | Strategy |
+| --- | --- |
+| **`MinimaxAgent(depth=2)`** | Depth-limited minimax over `(scores[0] - scores[1])` as the evaluation function, recursively simulating moves on board copies. *Note: the current implementation is plain minimax — it explores the full move tree at the configured depth without alpha-beta pruning cutoffs.* Depth is configurable at construction time. |
 
-| Agent | Architecture | Use Case |
-|-------|-------------|----------|
-| **DQNSmall** | Single hidden layer (64 units) | Fast training, lightweight |
-| **DQNMedium** | Two hidden layers (128, 64) | Balanced performance |
-| **DQNLarge** | Two hidden layers (256, 128) | Maximum performance |
+### Reinforcement-learning agent
 
-All DQN agents feature:
-- Experience replay buffer
-- Target network for stable training
-- ε-greedy exploration with decay
-- Automatic fallback to NumPy implementation if PyTorch unavailable
+| Agent | Strategy |
+| --- | --- |
+| **`QLearningAgent`** | Tabular Q-learning keyed on the raw board state tuple (`defaultdict` of 12-length NumPy arrays). Supports configurable learning rate, discount factor, and ε-greedy exploration with decay, plus `save_checkpoint`/`load_checkpoint` via pickle. |
 
-## Usage
+### Deep reinforcement-learning agents
 
-### Running Simulations
+`DQNAgent` (and its three preset sizes `DQNSmall`, `DQNMedium`, `DQNLarge`) implement a standard DQN: a feed-forward Q-network, a periodically-synced target network, an experience replay buffer, and ε-greedy exploration with decay. Invalid actions are masked out with a large negative value before taking the arg-max.
 
-Simulate games between random AI matchups:
+| Preset | Hidden layers | Learning rate | Batch size | Buffer size | Target sync |
+| --- | --- | --- | --- | --- | --- |
+| **DQNSmall** | (64,) | 1e-3 | 32 | 5,000 | every 20 steps |
+| **DQNMedium** | (128, 64) | 5e-4 | 64 | 10,000 | every 10 steps |
+| **DQNLarge** | (256, 128) | 3e-4 | 128 | 20,000 | every 5 steps |
+
+Two backends share the exact same interface:
+
+- **PyTorch backend** (`DQNNet` + `torch.optim.Adam`) — used automatically whenever `import torch` succeeds. Runs on CUDA if available.
+- **Pure NumPy backend** (`NumpyDQNAgent`) — a hand-written one- or two-hidden-layer MLP with manual forward pass and backpropagation (ReLU activations, MSE loss, SGD-style updates), automatically substituted in whenever PyTorch is not installed. This means every DQN experiment in the repo can still be run with zero deep-learning dependencies, just more slowly.
+
+Both DQN implementations track running training statistics (`training_losses`, `episode_rewards`, `epsilon`) and can serialize/deserialize full training state (`save_checkpoint`/`load_checkpoint` — `.pth` for PyTorch, `.npz` for NumPy).
+
+```python
+from agents import QLearningAgent, MinimaxAgent, DQNMedium
+
+q_agent = QLearningAgent(learning_rate=0.1, discount_factor=0.95, exploration_rate=0.8)
+minimax_agent = MinimaxAgent(depth=3)
+dqn_agent = DQNMedium()  # falls back to NumPy automatically if torch isn't installed
+```
+
+## Training Deep Q-Network Agents
+
+The `actions/training.py` module implements a full training pipeline on top of `DQNAgent`/`NumpyDQNAgent`: configurable episode counts, periodic evaluation against a curriculum of opponents, checkpointing (including automatic "best model" tracking), and early stopping. Full documentation lives in [`TRAINING_GUIDE.md`](./TRAINING_GUIDE.md); the highlights:
+
+**Menu-driven:**
 
 ```bash
-# From the actions directory
+cd actions
+python menu.py
+# Option 4 (train dqn) → Option 1 (Quick Training) or Option 2 (Advanced Training)
+```
+
+**Command line:**
+
+```bash
+cd actions
+python3 training.py small 2000                       # train DQNSmall for 2000 episodes
+python3 training.py medium 5000                       # train DQNMedium for 5000 episodes
+python3 training.py large 10000                       # train DQNLarge for 10000 episodes
+python3 training.py evaluate checkpoint.pth small 100 # evaluate a saved checkpoint
+python3 training.py list                              # list past training sessions
+```
+
+**Programmatic configuration:**
+
+```python
+from actions.training import create_training_config, DQNTrainer
+from agents import DQNMedium
+
+config = create_training_config(
+    total_episodes=10000,
+    eval_interval=200,
+    checkpoint_interval=400,
+    patience=1500,
+    variant='dense',
+    opponent_weights=[0.3, 0.3, 0.3, 0.1],  # tougher opponent mix
+)
+
+trainer = DQNTrainer(config)
+results = trainer.train(DQNMedium, 'my_advanced_training')
+```
+
+**Default training curriculum** — the trainer mixes opponents so the agent doesn't overfit to one strategy:
+
+| Opponent | Default weight |
+| --- | --- |
+| Random | 40% |
+| Greedy | 30% |
+| Heuristic | 20% |
+| Minimax | 10% |
+
+**Key `TrainingConfig` fields:**
+
+| Parameter | Default | Meaning |
+| --- | --- | --- |
+| `total_episodes` | 5000 | Total training episodes |
+| `warmup_episodes` | 100 | Episodes before training/learning starts |
+| `eval_interval` | 250 | Episodes between evaluation passes |
+| `eval_episodes` | 50 | Episodes per evaluation |
+| `checkpoint_interval` | 500 | Episodes between checkpoints |
+| `patience` | 1000 | Early-stopping patience |
+| `variant` | `standard` | Which `OwareBoard` variant to train on |
+
+Every session writes to `output/training/<session_name>/`, including `config.json`, an episode-by-episode `training_log.json`, a `final_metrics.pkl`, and a `checkpoints/` directory with versioned `.pth`/`.npz` files, per-checkpoint metadata, and a symlinked `best_checkpoint.pth`.
+
+## Simulation, Tournaments & Analysis
+
+`actions/simulation.py` and `actions/analysis.py` provide the batch-experiment layer on top of the engine and agents.
+
+**Batch simulation** (agent vs. agent, N episodes, results logged to CSV):
+
+```bash
+cd actions
 python simulation.py
 ```
 
-Or use the menu system:
-1. Select option `1: run simulation`
-2. Enter number of episodes (e.g., 1000)
-3. Results saved to `output/sim_log.csv`
-
-### Tournament Mode
-
-Run single-elimination tournaments:
+**Tournaments** (single-elimination bracket across every registered agent):
 
 ```bash
-# All available agents compete
 python -c "import simulation; simulation.run_tournament()"
 ```
 
-Or via menu option `2: run tournament`
+Both are also reachable from `menu.py` (options `1` and `2`).
 
-### Training DQN Agents
+**Statistical analysis** over the resulting logs (win rates by agent, average game length, capture statistics, head-to-head breakdowns):
 
-The project includes a comprehensive training system for deep reinforcement learning:
-
-#### Quick Training
-1. Select menu option `4: train dqn` → `1: Quick Training`
-2. Choose model size (Small/Medium/Large)
-3. Configure episodes and game variant
-4. Monitor real-time training progress
-
-#### Advanced Training
-1. Select menu option `4: train dqn` → `2: Advanced Training`
-2. Configure detailed parameters (evaluation intervals, checkpointing, early stopping)
-3. Multi-opponent curriculum learning
-4. Comprehensive metrics and logging
-
-#### Command Line Training
 ```bash
-cd actions
-python3 training.py small 2000      # Quick training
-python3 training.py evaluate checkpoint.pth small  # Evaluate model
-python3 training.py list            # List training sessions
+python menu.py   # option 3: run analysis
 ```
 
-Features:
-- **Progress Tracking**: Real-time win rate and loss monitoring
-- **Smart Checkpointing**: Automatic saving of best models with versioning
-- **Multi-Opponent Training**: Curriculum learning against diverse strategies  
-- **Early Stopping**: Automatic termination when no improvement detected
-- **Comprehensive Logging**: Detailed training metrics and session management
+Run simulations/tournaments first — analysis reads from `output/sim_log.csv` and `output/tourney_log.csv` and writes its findings to `output/analysis_log.csv`.
 
-See `TRAINING_GUIDE.md` for detailed documentation.
+## Data Output Reference
 
-### Statistical Analysis
+Everything the project produces lands in `output/` as CSV (simulation/tournament/analysis) or structured training artifacts (JSON/pickle/checkpoint files):
 
-Analyze simulation results:
+- **`sim_log.csv`** — episode number, agent match-up, winner, final scores, move count, game length, capture counts, and agent-specific fields (e.g. the acting ε for RL agents).
+- **`tourney_log.csv`** — match IDs, participants, best-of-series results, aggregate match statistics, bracket progression.
+- **`analysis_log.csv`** — per-agent win rates, summary statistics, and comparison metrics computed from the two logs above.
+- **`training/<session>/`** — see [Training Deep Q-Network Agents](#training-deep-q-network-agents).
 
-1. Run simulations first to generate data
-2. Select menu option `3: run analysis`  
-3. View detailed statistics in console
-4. Results exported to `output/analysis_log.csv`
+## Testing
 
-Analysis includes:
-- Win rates by agent type
-- Average game statistics
-- Performance trends
-- Head-to-head comparisons
+`test_advanced_analysis.py` at the repo root exercises the statistical analysis pipeline to guard against regressions in how win rates, aggregate scores, and trend metrics are computed. Run it with your test runner of choice, e.g.:
 
-## Project Structure
-
-```
-Oware-AI-Competition-Bot-Game/
-├── owareEngine.py          # Core game engine and board logic
-├── agents.py               # AI agent implementations  
-├── actions/                # Main application modules
-│   ├── menu.py            # Interactive command-line interface
-│   ├── simulation.py      # Game simulation and tournament logic
-│   ├── analysis.py        # Statistical analysis and reporting
-│   └── training.py        # Comprehensive DQN training system
-├── output/                # Generated logs and results
-│   ├── sim_log.csv        # Simulation results
-│   ├── tourney_log.csv    # Tournament results
-│   ├── analysis_log.csv   # Statistical analysis output
-│   └── training/          # Training sessions and model checkpoints
-├── requirements.txt       # Project dependencies
-├── test_training.py       # Training system validation
-└── TRAINING_GUIDE.md      # Detailed training documentation
+```bash
+python -m pytest test_advanced_analysis.py
+# or
+python test_advanced_analysis.py
 ```
 
-### Key Components
+## Research Paper
 
-- **`OwareBoard`**: Complete game state management with variant support
-- **Agent Classes**: Modular AI implementations with consistent interface
-- **DataLogger**: CSV logging for all game events and statistics
-- **Training Pipeline**: Automated DQN training with progress tracking
+`Oware Research Paper.pdf` is the written report that accompanies this codebase — it documents the experimental methodology, agent comparisons, and findings produced using this engine and training pipeline. Refer to it for the motivation and analysis behind the agent designs above.
 
-## Configuration
+## Extending the Project
 
-### Game Variants
+Ideas for further work, several of which are also called out in `TRAINING_GUIDE.md`'s "Future Enhancements" section:
 
-Modify game rules by specifying variants in `OwareBoard`:
-
-```python
-board = OwareBoard(variant="standard")  # Default
-board = OwareBoard(variant="sparse")    # Fewer seeds
-board = OwareBoard(variant="dense")     # More seeds  
-board = OwareBoard(variant="no_chain")  # No chain captures
-```
-
-### Agent Parameters
-
-Customize AI behavior:
-
-```python
-# Q-Learning agent with custom parameters
-agent = QLearningAgent(
-    learning_rate=0.1,
-    discount_factor=0.95,
-    exploration_rate=0.8
-)
-
-# DQN agent with custom architecture
-agent = DQNAgent(
-    hidden_sizes=(128, 64),
-    lr=1e-3,
-    buffer_size=10000
-)
-```
-
-### Training Configuration
-
-Adjust DQN training in the menu system or programmatically:
-
-```python
-agent = DQNMedium()
-# Train against random opponents
-for episode in range(1000):
-    # ... training loop
-    agent.train_step()
-```
-
-## Data Output
-
-All game results are logged to CSV files in the `output/` directory:
-
-### Simulation Logs (`sim_log.csv`)
-- Episode number and agent types
-- Winner and final scores  
-- Game length and move counts
-- Capture statistics
-- Agent-specific metrics (e.g., epsilon values)
-
-### Tournament Logs (`tourney_log.csv`)  
-- Match identifiers and participants
-- Best-of series results
-- Aggregate match statistics
-- Tournament progression data
-
-### Analysis Logs (`analysis_log.csv`)
-- Agent performance summaries
-- Win rate calculations
-- Statistical significance tests
-- Performance trend analysis
+1. **New AI strategies** — Monte Carlo Tree Search, genetic/evolutionary algorithms, alpha-beta pruning or iterative deepening for `MinimaxAgent`.
+2. **Deeper statistical analysis** — significance testing, Elo-style rating systems across tournament results.
+3. **Resume-from-checkpoint training** and **distributed/multi-process training**.
+4. **Training visualization** — plots of win rate, loss, and ε over time.
+5. **A GUI or web front end** for human-vs-agent play.
+6. **Networked multiplayer.**
 
 ## Contributing
 
-Contributions welcome! Areas for enhancement:
-
-1. **New AI Strategies**: Implement additional algorithms (MCTS, genetic algorithms, etc.)
-2. **Advanced Analysis**: Add more sophisticated statistical methods
-3. **GUI Interface**: Create graphical game visualization
-4. **Network Play**: Add multiplayer capabilities
-5. **Performance Optimization**: Improve simulation speed
-
-### Development Setup
+Contributions are welcome:
 
 1. Fork the repository
 2. Create a feature branch
 3. Add tests for new functionality
-4. Ensure existing tests pass
+4. Ensure the existing test suite passes (`test_advanced_analysis.py`)
 5. Submit a pull request
-
----
 
 ## License
 
-This project is open source. Please see the repository for license details.
-
-## Acknowledgments
-
+This project is open source. See the repository for full license details.
 - Traditional Oware game rules and variants
 - PyTorch community for deep learning frameworks
 - Reinforcement learning research community
